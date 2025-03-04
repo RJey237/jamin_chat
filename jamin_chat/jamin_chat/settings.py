@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'jamin_chat.wsgi.application'
+# WSGI_APPLICATION = 'jamin_chat.wsgi.application'
 # Daphne
 ASGI_APPLICATION = "jamin_chat.asgi.application"
 CHANNEL_LAYERS = {

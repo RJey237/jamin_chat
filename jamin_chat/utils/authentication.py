@@ -8,16 +8,17 @@ async def get_user(query_string, headers):
     if b"token" in query_string:
         try:
             user_id=query_string[b"user_id"][0]
-            user=User.objects.aget(id=user_id)
+            user=await User.objects.aget(id=user_id)
             return user
         except:
             return AnonymousUser()
         
     elif b'authorization' in headers:
+
         try:
             key, value =headers[b'authorization'].decode().split()
             if key == 'user_id':
-                user==await User.objects.aget(id=value)
+                user=await User.objects.aget(id=value)
                 return user
         except User.DoesNotExist:
             return AnonymousUser()
@@ -34,6 +35,7 @@ class TokenAuthMiddleware:
         scope['query_string']
         )
         headers =dict(scope['headers'])
+        print(headers)
         scope['user']=await get_user(query_string,headers)
         return await self.inner(scope,receive,send)
     
